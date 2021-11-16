@@ -1,14 +1,15 @@
-package com.theScore.nflRushing.players;
+package com.theScore.nflRushing.players.dao.json;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.core.io.ClassPathResource;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.theScore.nflRushing.players.interfaces.PlayerDAO;
+import com.theScore.nflRushing.players.Player;
+import com.theScore.nflRushing.players.dao.interfaces.PlayerDAO;
 
 public class JSONPlayerDAO implements PlayerDAO
 {
@@ -178,14 +179,12 @@ public class JSONPlayerDAO implements PlayerDAO
 	public List<Player> createPlayers()
 	{
 		ObjectMapper mapper = new ObjectMapper();
-		String name;
 		List<Player> players = new LinkedList<>();
 		
 		try 
 		{
-			name = new File(".").getCanonicalPath();
-			File testFile = new File(name, "/" + "src\\main\\resources\\rushing.json");
-			List<JSONPlayerDAO> jsonPlayers = mapper.readValue(testFile, new TypeReference<List<JSONPlayerDAO>>(){});
+			ClassPathResource resourse = new ClassPathResource("rushing.json");
+			List<JSONPlayerDAO> jsonPlayers = mapper.readValue(resourse.getInputStream(), new TypeReference<List<JSONPlayerDAO>>(){});
 			
 			jsonPlayers.stream().forEach(jsonPlayer -> players.add(jsonPlayer.map()));
 		} 

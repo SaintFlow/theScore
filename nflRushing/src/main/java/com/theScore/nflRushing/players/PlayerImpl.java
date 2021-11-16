@@ -10,10 +10,13 @@ import java.util.stream.Collectors;
 
 import javax.servlet.ServletOutputStream;
 
-import com.theScore.nflRushing.players.interfaces.PlayerDAO;
+import com.theScore.nflRushing.players.dao.factories.PlayerDAOFactory;
+import com.theScore.nflRushing.players.dao.interfaces.PlayerDAO;
 
 public class PlayerImpl 
-{	
+{
+	private static PlayerDAO dao = PlayerDAOFactory.getDAO();
+	
 	/**
 	 * Retrieve a list of players from the storage, and filter them based on the parameters provided
 	 * @param allParams
@@ -21,8 +24,6 @@ public class PlayerImpl
 	 */
 	public static List<Player> getPlayers(Map<String,String> allParams)
 	{
-		PlayerDAO dao = new JSONPlayerDAO();
-		
 		List<Player> players = dao.createPlayers();
 		players = filterPlayers(players, allParams);
 		
@@ -87,21 +88,45 @@ public class PlayerImpl
 		return players;
 	}
 	
+	/**
+	 * Filter player by name. Case-insensitive
+	 * @param players List of players
+	 * @param name Name used to filter the list
+	 * @return
+	 */
 	public static List<Player> filterByName(List<Player> players, String name)
 	{
 		return players.stream().filter(player -> player.getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList());
 	}
 	
+	/**
+	 * Sort the player list by the total rushing yards
+	 * @param players List of players
+	 * @param direction String that takes only two values. "asc" for ascending or "desc" for descending
+	 * @return
+	 */
 	public static List<Player> sortByTotalRushingYards(List<Player> players, String direction)
 	{
 		return players.stream().sorted((a,b) -> (direction.equals("asc") ? 1 : -1) * Float.compare(a.getTotalRushingYards(), b.getTotalRushingYards())).collect(Collectors.toList());
 	}
 	
+	/**
+	 * Sort the players by the longest rushing yards
+	 * @param players List of players
+	 * @param direction String that takes only two values. "asc" for ascending or "desc" for descending
+	 * @return
+	 */
 	public static List<Player> sortByLongestRush(List<Player> players, String direction)
 	{
 		return players.stream().sorted((a,b) -> (direction.equals("asc") ? 1 : -1) * Float.compare(a.getLongestRush(), b.getLongestRush())).collect(Collectors.toList());
 	}
 	
+	/**
+	 * Sort the players by the total rushing toughdowns
+	 * @param players List of players
+	 * @param direction String that takes only two values. "asc" for ascending or "desc" for descending
+	 * @return
+	 */
 	public static List<Player> totalRushingtouchdowns(List<Player> players, String direction)
 	{
 		return players.stream().sorted((a,b) -> (direction.equals("asc") ? 1 : -1) * Float.compare(a.getTotalRushingTouchdowns(), b.getTotalRushingTouchdowns())).collect(Collectors.toList());

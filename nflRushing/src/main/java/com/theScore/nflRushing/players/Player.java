@@ -217,6 +217,10 @@ public class Player
 		this.isLongestRushATouchdownString = isLongestRushATouchdownString;
 	}
 	
+	/**
+	 * Convert the player to a row in a .csv file
+	 * @return String containing the player's information as a row in a .csv file
+	 */
 	public String toCSV()
 	{
 		StringBuilder stringBuilder = new StringBuilder();

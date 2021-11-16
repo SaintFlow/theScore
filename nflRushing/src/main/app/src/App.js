@@ -1,5 +1,6 @@
 import './App.css';
-import { Container, Table, Navbar } from 'reactstrap';
+import { Container } from 'reactstrap';
+import { MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 
 const React = require('react'); 
 
@@ -35,7 +36,7 @@ class App extends React.Component
 	{
 		var url = 'name=' + this.state.name + '&totalRushingYards=' + this.state.totalYards + '&longestRush=' + this.state.longestRush + '&totalRushingTouchdowns=' + this.state.totalRushingTouchdowns;
 		this.setState({savedURL: url});
-		url = 'players?' + url;
+		url = 'http://localhost:8080/players?' + url;
 		console.log(url);
 		
 		fetch(url)
@@ -153,38 +154,40 @@ class App extends React.Component
 		
 		return (
         <div className="App">
-          <Navbar/>
           <Container fuild>
-            <div>
-              <form onSubmit={this.handlePlayerChange}>
-                <label>
-	              Player Name: <input type="text" value={this.state.filterURL} onChange={this.handleChange} />        
-                </label>
-	            <input type="submit" value="Submit" />
-	           </form>
-			  <a href={'http://localhost:8080/players.csv?' + this.state.savedURL}>Download CSV</a>
+            <div class="row d-flex justify-content-center">
+              <div class="col-md-6">
+                <form className="form-inline mt-4 mb-4" onSubmit={this.handlePlayerChange}>    
+	              <input className="form-control form-control-sm ml-3 w-75" placeholder="Search" type="text" value={this.state.filterURL} onChange={this.handleChange} />               
+	              <input class="btn btn-primary" type="submit" value="Search" />
+	             </form>
+			    <a href={'http://localhost:8080/players.csv?' + this.state.savedURL}>Download CSV</a>
+	         </div>
             </div>
             <h3>Players</h3>
-            <Table className="mt-4">  
-              <tr>
-                <th>Name</th>
-                <th>Team</th>
-                <th>Position</th>
-                <th>Att/G</th>
-                <th>Att</th>
-                <th onClick={this.handleTotalRushingSort} style={{cursor:'pointer'}}>Yds {this.state.totalYards === 'asc' ? '▲' : this.state.totalYards === 'desc' ? '▼' : ''}</th>
-                <th>Avg</th>
-                <th>Yds/G</th>
-                <th onClick={this.handleTotalRushingTouchdownsSort} style={{cursor:'pointer'}}>TD {this.state.totalRushingTouchdowns === 'asc' ? '▲' : this.state.totalRushingTouchdowns === 'desc' ? '▼' : ''}</th>
-                <th onClick={this.handleLongestRushSort} style={{cursor:'pointer'}}>Lng {this.state.longestRush === 'asc' ? '▲' : this.state.longestRush === 'desc' ? '▼' : ''}</th>
-                <th>1st</th>
-                <th>1st%</th>
-                <th>20+</th>
-                <th>40+</th>
-                <th>FUM</th>
-              </tr>
-              <tbody>{playerList}</tbody>
-            </Table>
+            <MDBTable hover responsive small>
+              <caption>List of players </caption>
+              <MDBTableHead color="primary-color" textWhite>
+                <tr>
+                  <th>Name</th>
+                  <th>Team</th>
+                  <th>Position</th>
+                  <th>Att/G</th>
+                  <th>Att</th>
+                  <th className="hoverable" onClick={this.handleTotalRushingSort} style={{cursor:'pointer'}}>Yds {this.state.totalYards === 'asc' ? '▲' : this.state.totalYards === 'desc' ? '▼' : ''}</th>
+                  <th>Avg</th>
+                  <th>Yds/G</th>
+                 <th className="hoverable" onClick={this.handleTotalRushingTouchdownsSort} style={{cursor:'pointer'}}>TD {this.state.totalRushingTouchdowns === 'asc' ? '▲' : this.state.totalRushingTouchdowns === 'desc' ? '▼' : ''}</th>
+                  <th className="hoverable" onClick={this.handleLongestRushSort} style={{cursor:'pointer'}}>Lng {this.state.longestRush === 'asc' ? '▲' : this.state.longestRush === 'desc' ? '▼' : ''}</th>
+                  <th>1st</th>
+                  <th>1st%</th>
+                  <th>20+</th>
+                  <th>40+</th>
+                 <th>FUM</th>
+                </tr>
+              </MDBTableHead>
+              <MDBTableBody>{playerList}</MDBTableBody>    
+            </MDBTable>
           </Container>  
         </div>
     );
