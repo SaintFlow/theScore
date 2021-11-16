@@ -1,5 +1,7 @@
 # NFL Rushing Stat Application
 
+![Image](/screenshot.png "Screenshot")
+
 This small application displays the stats of NFL players provided in rushing.json. The user has the ability to filter the list by name, and sort the columns based on 
 Total Rushing Yards, Longest Rush and Total Rushing Touchdowns. The user can also download the filtered list as a .csv file.
 
