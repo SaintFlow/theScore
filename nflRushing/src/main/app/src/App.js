@@ -114,7 +114,7 @@ class App extends React.Component
 	async componentDidMount() 
 	{
 		var parameterURL = 'name=';
-		var playerURL = '/players?' + parameterURL;
+		var playerURL = 'http://localhost:8080/players?' + parameterURL;
 	    const response = await fetch(playerURL);
 	    const body = await response.json();
 	    this.setState({players: body});
