@@ -10,10 +10,9 @@ This application is powered by:
 - React
 
 ## Preresequites
-Java and npm must be installed on your local machine, with JAVA_PATH environment variable set to your local JRE folder. This installation has only been
-tested on Windows.
+Java and npm must be installed on your local machine, with JAVA_PATH environment variable set to your local JRE folder. There are two methods for running the application.
 
-## Installation
+## Installation: Method 1 - Java Jar and NPM
 ### Creating the Spring Boot background
 1. **Clone the application**
   
@@ -45,3 +44,24 @@ npm start
 ```
 
 When successful, the cmd will prompt you with the URL for accessing the application. The front end can now be visited using http:/localhost:3000
+
+## Installation: Method 2 - Docker
+First ensure Docker (Docker Desktop) is installed on your local machine such that commands can be run on the terminal.
+1. **Clone the application**
+  
+```bash
+git clone https://github.com/SaintFlow/theScore
+cd theScore/nflRushing
+```
+2. **Run Docker-Compose Build**
+
+```bash
+docker-compose build
+```
+
+3. **Run Docker-Compose up**
+```bash
+docker-compose up
+```
+
+The application can be accessed by visiting http://localhost:9090
