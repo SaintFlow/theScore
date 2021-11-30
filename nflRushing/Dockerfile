@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy maven executable to the image
 COPY mvnw .
 COPY .mvn .mvn
-ENV JAR_FILE=target/nflRushing-0.0.1-SNAPSHOT.jar
-COPY ${JAR_FILE} app.jar
+#ENV JAR_FILE=target/nflRushing-0.0.1-SNAPSHOT.jar
+#COPY ${JAR_FILE} app.jar
 
 # Copy the pom.xml file
 COPY pom.xml .

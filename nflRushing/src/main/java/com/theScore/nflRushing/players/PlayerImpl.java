@@ -42,6 +42,10 @@ public class PlayerImpl
 		{
 			Writer writer = new OutputStreamWriter(servletOutputStream, StandardCharsets.UTF_8);
 			
+			//Write header
+			String header = "Name,Team,Position,Att/G,Att,Yds,Avg,Yds/G,TD,Lng,1st,1st%,20+,40+,FUM\n";
+			writer.write(header);
+			
 			for (Player player : players)
 			{
 				writer.write(player.toCSV() + "\n");
