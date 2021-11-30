@@ -53,13 +53,25 @@ First ensure Docker (Docker Desktop) is installed on your local machine such tha
 git clone https://github.com/SaintFlow/theScore
 cd theScore/nflRushing
 ```
-2. **Run Docker-Compose Build**
+2. **Ensure nflRushing/mvnw is executable**
+
+This can be done in Windows by opening the file in Notepad++, and selecting Edit -> EOL Conversion -> Unix, then saving the file.
+
+This can also be done by making the file (or root folder) executing using chmod in Linux/MAC. Move to the root folder theScore in terminal and run
+
+```bash
+sudo chmod -r 777
+```
+
+3. **Run Docker-Compose Build**
+
+In theScore/nflRushing folder, run the below command to build the application.
 
 ```bash
 docker-compose build
 ```
 
-3. **Run Docker-Compose up**
+4. **Run Docker-Compose up**
 ```bash
 docker-compose up
 ```
